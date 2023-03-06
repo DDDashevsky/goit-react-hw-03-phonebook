@@ -7,6 +7,8 @@ import ContactsFilter from './ContactsFilter';
 
 import { Container } from './App.styled';
 
+localStorage.setItem('contacts', JSON.stringify([]));
+
 export class App extends React.Component {
   state = {
     contacts: JSON.parse(localStorage.getItem('contacts')),
