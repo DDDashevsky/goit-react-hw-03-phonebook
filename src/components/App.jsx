@@ -7,11 +7,9 @@ import ContactsFilter from './ContactsFilter';
 
 import { Container } from './App.styled';
 
-localStorage.setItem('contacts', JSON.stringify([]));
-
 export class App extends React.Component {
   state = {
-    contacts: JSON.parse(localStorage.getItem('contacts')),
+    contacts: [],
     filter: '',
   };
 
@@ -42,6 +40,15 @@ export class App extends React.Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
+
+  componentDidMount() {
+    const savedContact = localStorage.getItem('contacts');
+    if (savedContact !== null) {
+      const parsedContacts = JSON.parse(savedContact);
+      this.setState({ contacts: parsedContacts });
+      return;
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contact) {
